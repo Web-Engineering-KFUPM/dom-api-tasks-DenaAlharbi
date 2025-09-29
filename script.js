@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     button.addEventListener("click", function () {
         status.textContent = "You clicked the button!";
-    });});
+    });
+});
 /*  
 =======================================
 TODO3: Inspiring Quote Board
@@ -78,8 +79,33 @@ Use:
 data.content   // the quote text
 data.author    // the author
 */
- 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const button2 = document.getElementById("t3-loadQuote");
+    const quote = document.getElementById("t3-quote");
+    const author = document.getElementById("t3-author");
+
+
+    button2.addEventListener("click", function () {
+
+        fetch("https://dummyjson.com/quotes/random")
+            .then(function (response) {
+                if (!response.ok) {                 // not 2xx → treat as an error
+                    throw new Error("HTTP " + response.status);
+                }
+                return response.json();             // turn response body into JS object
+            })
+            .then(function (data) {
+               quote.textContent = data.content;
+               author.textContent = data.author;
+
+            })
+            .catch(function (err) {
+                quote.textContent = "sorry, cant show";
+                author.textContent = "";
+            });
+    });
+});
 /*  
 =======================================
 TODO4: Dammam Weather Now
