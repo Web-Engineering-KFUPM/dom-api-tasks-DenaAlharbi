@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();             // turn response body into JS object
             })
             .then(function (data) {
-               quote.textContent = data.content;
-               author.textContent = data.author;
+               quote.textContent = `"content: ${data.quote}"`;
+               author.textContent =` "author: ${data.author}"`;
 
             })
             .catch(function (err) {
