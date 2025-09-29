@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();             // turn response body into JS object
             })
             .then(function (data) {
-               quote.textContent = `"content: ${data.quote}"`;
-               author.textContent =` "author: ${data.author}"`;
+                quote.textContent = `"content: ${data.quote}"`;
+                author.textContent = ` "author: ${data.author}"`;
 
             })
             .catch(function (err) {
@@ -130,3 +130,33 @@ data.main.temp      → temperature (°C)
 data.main.humidity  → humidity (%)
 data.wind.speed     → wind speed (m/s)
 */
+const button3 = document.getElementById("t4-loadWx");
+const temp = document.getElementById("t4-temp");
+const hum = document.getElementById("t4-hum");
+const wind = document.getElementById("t4-wind");
+
+const apiKey = "9c29da573838fd8cdd561179419142d7";
+const city = "Dammam";
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+button3.addEventListener("click", function () {
+
+    fetch(url)
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
+            }
+            return response.json();
+        })
+        .then(function (data) {
+            temp.textContent = data.main.temp;
+            hum.textContent = data.main.humidity;
+            wind.textContent = data.wind.speed;
+
+
+        })
+        .catch(function (err) {
+            temp.innerHTML = "sorry, cant show";
+            hum.innerHTML = "sorry, cant show";
+            wind.innerHTML = "sorry, cant show";
+        });
+});
